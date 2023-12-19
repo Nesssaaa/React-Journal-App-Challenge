@@ -10,7 +10,7 @@ export default function FavoriteButton() {
 
   function toggleFavoriteButton(){
     setIsFavorite(!isFavorite);
-  }
+  };
 
   return (
     
