@@ -13,7 +13,7 @@ export default function EntriesSection({entries}) {
     <section className="entries-section">
       <Tabs>
         <Tab active>
-          All Entries <Badge isActive>3</Badge>
+          All Entries <Badge isActive>{entries.length}</Badge>
         </Tab>
         <Tab>
           Favorites <Badge>1</Badge>
