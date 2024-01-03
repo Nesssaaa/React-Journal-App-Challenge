@@ -8,10 +8,6 @@ import React from "react";
 
 
 
-
-
-
-
 export default function EntriesSection({entries}) {
   return (
     <section className="entries-section">
@@ -24,13 +20,13 @@ export default function EntriesSection({entries}) {
         </Tab>
       </Tabs>
       <div className="entries-section__entries">
-        {entries.map((entry, index)=> {
+        {entries.map((entry, index) => (
            <React.Fragment key={entry.id}>
             {index !== 0 && <Divider />}
           <Entry key={entry.id} date={entry.date} motto={entry.motto} notes={entry.notes}/> 
           </React.Fragment>
           
-        })}
+        ))}
       </div>
     </section>
   );
