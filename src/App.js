@@ -39,8 +39,13 @@ const initialEntries = [
 
 
 function App() {
-  const [entries, setEntries]= useLocalStorageState("entries", {defaultValue: initialEntries});
+  const [entries, setEntries]= useLocalStorageState("entries", {
+    defaultValue: initialEntries
+  });
   const [filter, setFilter]= useState("all")
+  //const [filter, setFilter]= useLocalStorageState("filter", {defaultValue: "all"})
+
+ 
 
 function handleAddEntry(newEntry){
   const date = new Date().toLocaleDateString("en-us", 
