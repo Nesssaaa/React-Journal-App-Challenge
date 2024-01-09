@@ -6,12 +6,8 @@ export default function EntryForm({onAddEntry}) {
     event.preventDefault();
     
     const formData = new FormData(event.target);
-    const newEntry = {
-      motto: formData.get("motto"),
-      notes: formData.get("notes"),
-    }; 
-
-    onAddEntry(newEntry);
+    const data = Object.fromEntries(formData);
+    onAddEntry(data);
     event.target.reset();
   };
   
