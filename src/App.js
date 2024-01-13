@@ -37,62 +37,62 @@ const initialEntries = [
   },
 ];
 
-
 function App() {
-  const [entries, setEntries]= useLocalStorageState("entries", {
-    defaultValue: initialEntries
+  const [entries, setEntries] = useLocalStorageState("entries", {
+    defaultValue: initialEntries,
   });
-  const [filter, setFilter]= useState("all")
+  const [filter, setFilter] = useState("all");
   //const [filter, setFilter]= useLocalStorageState("filter", {defaultValue: "all"})
 
- 
+  function handleAddEntry(newEntry) {
+    const date = new Date().toLocaleDateString("en-us", {
+      dateStyle: "medium",
+    });
 
-function handleAddEntry(newEntry){
-  const date = new Date().toLocaleDateString("en-us", 
-  { dateStyle: "medium" });
+    setEntries([{ id: uid(), date, ...newEntry }, ...entries]);
+  }
 
-setEntries([{ id: uid(), date, ...newEntry }, ...entries]);
-}
+  function handleToggleFavorite(id) {
+    setEntries(
+      entries.map((entry) =>
+        entry.id === id ? { ...entry, isFavorite: !entry.isFavorite } : entry
+      )
+    );
+  }
 
-function handleToggleFavorite(id) {
-  setEntries(
-    entries.map((entry)=> 
-    entry.id === id ? {...entry, isFavorite: !entry.isFavorite }:entry
-    )
-  )
-}
+  function handleShowFavoriteEntries() {
+    setFilter("favorites");
+  }
 
+  function handleShowAllEntries() {
+    setFilter("all");
+  }
 
+  function handleDeleteEntries(entryToRemove) {
+    setEntries(entries.filter((entry) => entry.id !== entryToRemove));
+  }
 
-function handleShowFavoriteEntries() {
-  setFilter("favorites");
-}
-
-function handleShowAllEntries() {
-  setFilter("all");
-}
-
-const favoriteEntries = entries.filter((entry)=> entry.isFavorite);
-
+  const favoriteEntries = entries.filter((entry) => entry.isFavorite);
 
   return (
     <div className="app">
       <Header />
       <main className="app__main">
-        <EntryForm onAddEntry={handleAddEntry}/>
-        <EntriesSection 
-        entries={filter ==="favorites" ? favoriteEntries : entries}
-        filter={filter}
-        allEntriesCount={entries.length}
-        onToggleFavorite={handleToggleFavorite}
-        favoriteEntriesCount={favoriteEntries.length}
-        onShowFavoriteEntries={handleShowFavoriteEntries}
-        onShowAllEntries={handleShowAllEntries}
+        <EntryForm onAddEntry={handleAddEntry} />
+        <EntriesSection
+          entries={filter === "favorites" ? favoriteEntries : entries}
+          filter={filter}
+          allEntriesCount={entries.length}
+          onToggleFavorite={handleToggleFavorite}
+          favoriteEntriesCount={favoriteEntries.length}
+          onShowFavoriteEntries={handleShowFavoriteEntries}
+          onShowAllEntries={handleShowAllEntries}
+          onDeleteEntries={handleDeleteEntries}
         />
       </main>
       <Footer />
     </div>
   );
-  };
+}
 
 export default App;
